@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'appbar.dart';
 import 'aqpage.dart';
@@ -37,6 +35,8 @@ class MyApp extends StatelessWidget {
                     ),
                     label: 'Ajuda'),
               ]),
-        ));
+        ),
+        debugShowCheckedModeBanner: false
+        );
   }
 }
