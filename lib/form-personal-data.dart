@@ -14,12 +14,18 @@ class FormPersonalData extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       child: Form(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GenderSelectionDropdown(),
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 10, left: 3, right: 3),
+              child: Text(
+                '1. A	sua	criança	olha	para	si	quando	chama	pelo	nome	dela?',
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18),
+              ),
+            ),
+            RadioOptions(),
             Container(
               child: Text(
-                '1/5',
+                '1/10',
                 style: TextStyle(fontFamily: 'Montserrat', fontSize: 15),
               ),
             ), // Adiciona espaço de 20 unidades entre os widgets

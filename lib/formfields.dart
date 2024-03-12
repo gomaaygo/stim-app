@@ -83,9 +83,123 @@ class _GenderSelectionDropdownState extends State<GenderSelectionDropdown> {
               ),
               contentPadding:
                   EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-              hintStyle:
-                  TextStyle(fontFamily: 'Montserrat', fontSize: 16),
+              hintStyle: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               labelStyle: TextStyle(fontFamily: 'Montserrat', fontSize: 16)),
+        )
+      ],
+    );
+  }
+}
+
+class RadioOptions extends StatefulWidget {
+  @override
+  _RadioOptionsState createState() => _RadioOptionsState();
+}
+
+class _RadioOptionsState extends State<RadioOptions> {
+  int selectedOption = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 150,
+                  child: RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Sempre',
+                        style:
+                            TextStyle(fontFamily: 'Montserrat', fontSize: 13)),
+                    value: 1,
+                    groupValue: selectedOption,
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  width: 170,
+                  child: RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Habitualmente',
+                        style:
+                            TextStyle(fontFamily: 'Montserrat', fontSize: 13)),
+                    value: 2,
+                    groupValue: selectedOption,
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Container(
+                  width: 150,
+                  child: RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Raramente',
+                        style:
+                            TextStyle(fontFamily: 'Montserrat', fontSize: 13)),
+                    value: 3,
+                    groupValue: selectedOption,
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  width: 150,
+                  child: RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Nunca',
+                        style:
+                            TextStyle(fontFamily: 'Montserrat', fontSize: 13),
+                        textAlign: TextAlign.left,),
+                    value: 4,
+                    groupValue: selectedOption,
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 115),
+              width: 150,
+              child: RadioListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text('Às vezes',
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 13)),
+                value: 5,
+                groupValue: selectedOption,
+                onChanged: (int? value) {
+                  setState(() {
+                    selectedOption = value!;
+                  });
+                },
+              ),
+            ),
+          ],
         )
       ],
     );
