@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'form-personal-data.dart';
 import 'formfields.dart';
+import 'appbar.dart';
 
-class AQPage extends StatelessWidget {
-  const AQPage({super.key});
+class AQ10 extends StatelessWidget {
+  const AQ10({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,5 +110,41 @@ class AQPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+
+class AQPage extends StatelessWidget {
+  const AQPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'STIM',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Scaffold(
+          appBar: AppBarHome(),
+          body: SingleChildScrollView(
+            child: AQ10(),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+              currentIndex: 0,
+              fixedColor: Color.fromRGBO(104, 96, 96, 0.900),
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home, size: 30), label: 'Início'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.help,
+                      size: 30,
+                    ),
+                    label: 'Ajuda'),
+              ]),
+        ),
+        debugShowCheckedModeBanner: false
+        );
   }
 }

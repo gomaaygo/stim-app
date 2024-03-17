@@ -1,6 +1,7 @@
+import 'package:appstim/homepage.dart';
 import 'package:flutter/material.dart';
 import 'appbar.dart';
-import 'aqpage.dart';
+import 'homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           appBar: AppBarHome(),
           body: SingleChildScrollView(
-            child: AQPage(),
+            child: HomePage(),
           ),
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: 0,

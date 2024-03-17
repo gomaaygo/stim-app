@@ -1,3 +1,4 @@
+import 'package:appstim/aqpage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +12,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              child: Image.asset("assets/images/stim-logo2.jpeg",
+              alignment: Alignment.topCenter,
+              child: Image.asset("assets/images/stim-logo2.png",
                   width: 200, height: 200),
             ),
             Container(
@@ -28,7 +30,12 @@ class HomePage extends StatelessWidget {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       primary: Color(0xFFFFC400), minimumSize: Size(140, 45)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AQPage()),
+                    );
+                  },
                   child: Text(
                     'Iniciar',
                     style: TextStyle(
