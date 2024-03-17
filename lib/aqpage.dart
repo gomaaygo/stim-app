@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sort_child_properties_last
 
+import 'dart:ffi' as ffi;
+import 'dart:ui' as ui;
+
 import 'package:appstim/homepage.dart';
 import 'package:flutter/material.dart';
-import 'form-personal-data.dart';
-import 'formfields.dart';
 import 'appbar.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -27,15 +28,17 @@ class _AQ10ScreenState extends State<AQ10Screen> {
     'A sua criança usa gestos simples? (ex: acenar adeus)',
     'A sua criança olha	fixamente	para nada sem	razão aparente?'
   ];
-  List<int> feedbackList = List.filled(10, 0);
+  Map<String, dynamic> aqDict = {};
+  String selectedOption = 'a';
 
-  void submitFeedback(int rating) {
+  void submitAQ(String rating) {
     setState(() {
-      feedbackList[currentQuestion] = rating;
+      aqDict['aq$currentQuestion'] = rating;
       if (currentQuestion < 9) {
         currentQuestion++;
+        print("Feedback submitAQ: $aqDict");
       } else {
-        print("Feedback submitted: $feedbackList");
+        print("Feedback submitAQ: $aqDict");
 
         // Após responder à última pergunta, navega para a página inicial.
         Navigator.push(
@@ -49,10 +52,10 @@ class _AQ10ScreenState extends State<AQ10Screen> {
   Future<void> saveFeedbackToJson() async {
     Map<String, dynamic> feedbackData = {
       'questions': questions,
-      'feedback': feedbackList,
+      'feedback': aqDict,
     };
 
-    final file = File('feedback_data.json');
+    final file = File('aq_data.json');
     await file.writeAsString(jsonEncode(feedbackData));
   }
 
@@ -151,7 +154,114 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                       textAlign: TextAlign.justify,
                     ),
                   ),
-                  RadioOptions(),
+                  Stack(
+                    children: [
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 150,
+                                child: RadioListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text('Sempre',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 13)),
+                                  value: 'a',
+                                  groupValue: selectedOption,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedOption = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                width: 170,
+                                child: RadioListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text('Habitualmente',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 13)),
+                                  value: 'b',
+                                  groupValue: selectedOption,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedOption = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                width: 150,
+                                child: RadioListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text('Raramente',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 13)),
+                                  value: 'd',
+                                  groupValue: selectedOption,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedOption = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                width: 150,
+                                child: RadioListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(
+                                    'Nunca',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat', fontSize: 13),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  value: 'e',
+                                  groupValue: selectedOption,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedOption = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(top: 115),
+                            width: 150,
+                            child: RadioListTile(
+                              contentPadding: EdgeInsets.zero,
+                              title: Text('Às vezes',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat', fontSize: 13)),
+                              value: 'c',
+                              groupValue: selectedOption,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedOption = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                   Container(
                     child: Text(
                       '${currentQuestion + 1}/12',
@@ -170,7 +280,10 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                       primary: Color.fromRGBO(13, 71, 161, 0.900),
                       minimumSize: Size(70, 65),
                       shape: CircleBorder()),
-                  onPressed: () => submitFeedback(currentQuestion + 1),
+                  onPressed: () {
+                    submitAQ(selectedOption);
+                    selectedOption = ''; 
+                  },
                   child: Icon(Icons.navigate_next_outlined,
                       color: Colors.white, size: 40),
                 )
