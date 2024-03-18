@@ -78,7 +78,9 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                     width: 165,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(255, 196, 0, 0.900),
+                      color: currentQuestion <= 1
+                          ? Color.fromRGBO(255, 196, 0, 0.900)
+                          : Color.fromRGBO(255, 243, 0243, 0.900),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.4), // Cor da sombra
@@ -97,7 +99,7 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                             fontFamily: 'Montserrat',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromRGBO(
+                            color: currentQuestion <= 1 ? Color.fromRGBO(255, 243, 0243, 0.900) : Color.fromRGBO(
                               13,
                               71,
                               161,
@@ -110,7 +112,9 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                   width: 165,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromRGBO(255, 243, 0243, 0.900),
+                    color: currentQuestion <= 1
+                        ? Color.fromRGBO(255, 243, 0243, 0.900)
+                        : Color.fromRGBO(255, 196, 0, 0.900),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5), // Cor da sombra
@@ -129,12 +133,13 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                           fontFamily: 'Montserrat',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(
-                            167,
-                            157,
-                            157,
-                            0.900,
-                          )),
+                          color: currentQuestion <= 1
+                              ? Color.fromRGBO(
+                                  167,
+                                  157,
+                                  157,
+                                  0.900,
+                                ): Color.fromRGBO(255, 243, 0243, 0.900)),
                     ),
                   ),
                 )
@@ -282,7 +287,7 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                       shape: CircleBorder()),
                   onPressed: () {
                     submitAQ(selectedOption);
-                    selectedOption = ''; 
+                    selectedOption = '';
                   },
                   child: Icon(Icons.navigate_next_outlined,
                       color: Colors.white, size: 40),

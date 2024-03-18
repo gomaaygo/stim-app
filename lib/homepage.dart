@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.only(right: 30, left: 30, bottom: 70),
+        padding: const EdgeInsets.only(right: 30, left: 30, bottom: 120),
         child: Column(
           children: [
             Container(
