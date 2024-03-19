@@ -17,6 +17,8 @@ class AQ10Screen extends StatefulWidget {
 class _AQ10ScreenState extends State<AQ10Screen> {
   int currentQuestion = 0;
   List<String> questions = [
+    'Qual a idade do paciente (meses)?',
+    'Selecione o gênero:',
     'A sua criança olha	para si	quando chama pelo	nome dela?',
     'Quão fácil	é	para si conseguir	contato	ocular com a sua criança?',
     'A sua criança aponta	para indicar que quer alguma coisa? (ex: um	brinquedo	que	está fora	do alcance)',
@@ -30,6 +32,8 @@ class _AQ10ScreenState extends State<AQ10Screen> {
   ];
   Map<String, dynamic> aqDict = {};
   String selectedOption = 'a';
+  final TextEditingController _controller = TextEditingController();
+  String _selectedGender = 'f';
 
   void submitAQ(String rating) {
     setState(() {
@@ -99,12 +103,14 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                             fontFamily: 'Montserrat',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: currentQuestion <= 1 ? Color.fromRGBO(255, 243, 0243, 0.900) : Color.fromRGBO(
-                              13,
-                              71,
-                              161,
-                              0.900,
-                            )),
+                            color: currentQuestion <= 1
+                                ? Color.fromRGBO(255, 243, 0243, 0.900)
+                                : Color.fromRGBO(
+                                    13,
+                                    71,
+                                    161,
+                                    0.900,
+                                  )),
                       ),
                     )),
                 Container(
@@ -135,11 +141,12 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                           fontWeight: FontWeight.bold,
                           color: currentQuestion <= 1
                               ? Color.fromRGBO(
-                                  167,
-                                  157,
-                                  157,
+                                  13,
+                                  71,
+                                  161,
                                   0.900,
-                                ): Color.fromRGBO(255, 243, 0243, 0.900)),
+                                )
+                              : Color.fromRGBO(255, 243, 0243, 0.900)),
                     ),
                   ),
                 )
@@ -159,114 +166,169 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                       textAlign: TextAlign.justify,
                     ),
                   ),
-                  Stack(
-                    children: [
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 150,
-                                child: RadioListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Text('Sempre',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 13)),
-                                  value: 'a',
-                                  groupValue: selectedOption,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedOption = value!;
-                                    });
-                                  },
-                                ),
-                              ),
-                              Container(
-                                width: 170,
-                                child: RadioListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Text('Habitualmente',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 13)),
-                                  value: 'b',
-                                  groupValue: selectedOption,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedOption = value!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                width: 150,
-                                child: RadioListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Text('Raramente',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 13)),
-                                  value: 'd',
-                                  groupValue: selectedOption,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedOption = value!;
-                                    });
-                                  },
-                                ),
-                              ),
-                              Container(
-                                width: 150,
-                                child: RadioListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Text(
-                                    'Nunca',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat', fontSize: 13),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  value: 'e',
-                                  groupValue: selectedOption,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedOption = value!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(top: 115),
-                            width: 150,
-                            child: RadioListTile(
-                              contentPadding: EdgeInsets.zero,
-                              title: Text('Às vezes',
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat', fontSize: 13)),
-                              value: 'c',
-                              groupValue: selectedOption,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedOption = value!;
-                                });
-                              },
+                  if (currentQuestion == 0)
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: TextFormField(
+                        key: Key('age'),
+                        keyboardType: TextInputType.number,
+                        controller: _controller,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 20.0),
+                            hintStyle: TextStyle(
+                                fontFamily: 'Montserrat-Medium', fontSize: 16)),
+                      ),
+                    ),
+                  if (currentQuestion == 1)
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: DropdownButtonFormField<String>(
+                        value: null,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedGender = newValue as String ?? '';
+                          });
+                        },
+                        items: <String>['Masculino', 'Feminino']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 20.0),
+                            hintStyle: TextStyle(
+                                fontFamily: 'Montserrat', fontSize: 16),
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat', fontSize: 16)),
+                      ),
+                    ),
+                  if (currentQuestion > 1)
+                    Stack(
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 150,
+                                  child: RadioListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text('Sempre',
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 13)),
+                                    value: 'a',
+                                    groupValue: selectedOption,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedOption = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 170,
+                                  child: RadioListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text('Habitualmente',
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 13)),
+                                    value: 'b',
+                                    groupValue: selectedOption,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedOption = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  child: RadioListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text('Raramente',
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 13)),
+                                    value: 'd',
+                                    groupValue: selectedOption,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedOption = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 150,
+                                  child: RadioListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      'Nunca',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 13),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    value: 'e',
+                                    groupValue: selectedOption,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedOption = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 115),
+                              width: 150,
+                              child: RadioListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: Text('Às vezes',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 13)),
+                                value: 'c',
+                                groupValue: selectedOption,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    selectedOption = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   Container(
                     child: Text(
                       '${currentQuestion + 1}/12',
@@ -286,6 +348,11 @@ class _AQ10ScreenState extends State<AQ10Screen> {
                       minimumSize: Size(70, 65),
                       shape: CircleBorder()),
                   onPressed: () {
+                    if (currentQuestion == 0)
+                      selectedOption = _controller.text;
+                    else if (currentQuestion == 1)
+                      selectedOption = _selectedGender == 'Feminino' ? 'f' : 'm';
+
                     submitAQ(selectedOption);
                     selectedOption = '';
                   },
